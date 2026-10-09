@@ -1,3 +1,0 @@
-import {setting,decrypt} from './store.js';import {Agent,auditMember} from './adapter.js';
-function dateStr(d){return `${String(d.getDate()).padStart(2,'0')}-${String(d.getMonth()+1).padStart(2,'0')}-${d.getFullYear()}`}
-export async function runCheck(user){if(!/^[a-z][a-z0-9_]{2,24}$/i.test(user))throw Error('User ID tidak valid');const encrypted=await setting('agent_cookie');if(!encrypted)throw Error('Session agent belum dipasang');const agent=new Agent(process.env.AGENT_BASE_URL||'https://agwl5.suksesbogil.com',decrypt(encrypted));const now=new Date(),from=new Date(now.getTime()-14*864e5);return auditMember(agent,user,dateStr(from),dateStr(now));}
